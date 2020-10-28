@@ -56,8 +56,17 @@ class Yamfdw(ForeignDataWrapper):
         self.db_name = options.get('db', 'test')
         self.collection_name = options.get('collection', 'test')
 
-        self.conn = MongoClient(host=self.host_name,
-                             port=self.port)
+        self.ssl = options.get('ssl', False)
+        self.ssl_ca_certs = options.get('ssl_ca_certs', None)
+
+        if self.ssl:
+            self.conn = MongoClient(host=self.host_name,
+                                 port=self.port,
+                                 ssl=self.ssl,
+                                 ssl_ca_certs=self.ssl_ca_certs)
+        else:
+            self.conn = MongoClient(host=self.host_name,
+                                 port=self.port)
 
         self.auth_db = options.get('auth_db', self.db_name)
 
