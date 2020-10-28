@@ -62,7 +62,7 @@ class Yamfdw(ForeignDataWrapper):
         if self.ssl:
             self.conn = MongoClient(host=self.host_name,
                                  port=self.port,
-                                 ssl=self.ssl,
+                                 ssl=True,
                                  ssl_ca_certs=self.ssl_ca_certs)
         else:
             self.conn = MongoClient(host=self.host_name,
