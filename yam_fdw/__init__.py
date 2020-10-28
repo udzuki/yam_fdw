@@ -80,7 +80,6 @@ class Yamfdw(ForeignDataWrapper):
             log2pg('self.coll: {} '.format(self.coll))
             log2pg('self.collection_name: {}'.format(self.collection_name))
             log2pg('collections: {}'.format(self.db.list_collection_names()))
-            log2pg('collstats: {}'.format(self.db.command("collstats", "statements")))
 
         # if we need to validate or transform any fields this is a place to do it
         # we need column definitions for types to validate we're passing back correct types
@@ -88,7 +87,7 @@ class Yamfdw(ForeignDataWrapper):
 
         if self.debug: log2pg('collection cols: {}'.format(columns))
 
-        self.stats = self.db.command("collstats", self.collection_name)
+        self.stats = self.db.command("collStats", self.collection_name)
         self.count=self.stats["count"]
         if self.debug: log2pg('self.stats: {} '.format(self.stats))
 
