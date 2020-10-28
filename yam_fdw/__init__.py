@@ -78,6 +78,9 @@ class Yamfdw(ForeignDataWrapper):
             log2pg('self.conn: {} '.format(self.conn))
             log2pg('self.db: {} '.format(self.db))
             log2pg('self.coll: {} '.format(self.coll))
+            log2pg('self.collection_name: {}'.format(self.collection_name))
+            log2pg('collections: {}'.format(self.db.list_collection_names()))
+            log2pg('collstats: {}'.format(self.db.command("collstats", "statements")))
 
         # if we need to validate or transform any fields this is a place to do it
         # we need column definitions for types to validate we're passing back correct types
