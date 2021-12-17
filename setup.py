@@ -11,7 +11,7 @@ if __name__ == '__main__':
           description='Yet Another Postgres FDW for MongoDB',
           url='http://github.com/asya999/yam_fdw',
           version='0.7.1',
-          install_requires=['pymongo>=2.8.1',
+          install_requires=['pymongo>=2.8.1,<4',
                             'python-dateutil'],
           packages=['yam_fdw'])
 
