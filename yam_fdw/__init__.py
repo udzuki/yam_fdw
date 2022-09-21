@@ -10,7 +10,7 @@ from pymongo import ASCENDING
 from dateutil.parser import parse
 from bson.objectid import ObjectId
 
-from functools import partial
+from functools import partial, reduce
 
 import time
 
