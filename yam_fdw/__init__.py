@@ -208,7 +208,7 @@ class Yamfdw(ForeignDataWrapper):
                docCount=res['sum']
                break
 
-        for x in xrange(docCount):
+        for x in range(docCount):
             if eqfields: yield eqfields
             else: yield d
 
