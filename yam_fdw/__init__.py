@@ -147,12 +147,17 @@ class Yamfdw(ForeignDataWrapper):
             if self.debug: log2pg('Qual field_name: {} operator: {} value: {}'.format(mongo_field_name, qual.operator, qual.value))
 
             if qual.operator in comp_mapper:
-               comp = Q.setdefault(mongo_field_name, {})
                if qual.operator == '~~': 
+                  comp = Q.setdefault(mongo_field_name, {})
                   comp[comp_mapper[qual.operator]] = vform(qual.value.replace('%','.*'))
+                  Q[mongo_field_name] = comp
+               elif qual.operator == '=':
+                  # Use simple equality instead of $eq operator for better compatibility
+                  Q[mongo_field_name] = vform(qual.value)
                else: 
+                  comp = Q.setdefault(mongo_field_name, {})
                   comp[comp_mapper[qual.operator]] = vform(qual.value)
-               Q[mongo_field_name] = comp
+                  Q[mongo_field_name] = comp
                if self.debug: log2pg('Qual {} comp {}'.format(qual.operator, qual.value))
             else:
                log2pg('Qual operator {} not implemented for value {}'.format(qual.operator, qual.value))
